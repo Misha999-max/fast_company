@@ -27,23 +27,23 @@ const Users = () => {
         </thead>
         <tbody>
             
-       { users.length !== 0 ? users.map(user => (
+       {users.length !== 0 ? users.map(user => (
             <tr key={user._id}>
-                <th key={user.name} scope="row">{user.name}</th>
-                <th key={user.qualities._id}>{user.qualities.map(qual => (
-                    <span key={qual._id} className={"badge bg-" + qual.color + " m-2 p-2"}>{qual.name}</span>
+                <th scope="row">{user.name}</th>
+                <th>{user.qualities.map(qual => (
+                    <span className={"badge bg-" + qual.color + " m-2 p-2"}>{qual.name}</span>
                 ))}</th>
-                <th key={user.profession.name}>{user.profession.name}</th>
-                <th key={user.completedMeetings}>{user.completedMeetings}</th>
-                <th key={user.rate}>{user.rate}</th>
-                <th key={user._id}>
-                 <button key={Date.now()} onClick={() => handeDelet(user._id)}  className="btn btn-danger">DELETE</button>
+                <th>{user.profession.name}</th>
+                <th>{user.completedMeetings}</th>
+                <th>{user.rate}</th>
+                <th>
+                 <button onClick={() => handeDelet(user._id)}  className="btn btn-danger">DELETE</button>
                 </th>
             </tr>
         )) :
 
-        <div className="badge m-10 bg-warning">Что-то ни кто не хочет тусить</div>
-      }
+          <div className="badge m-10 bg-warning">Что-то ни кто не хочет тусить</div>
+        }
         </tbody>
       </table>
     </>

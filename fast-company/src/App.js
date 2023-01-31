@@ -1,6 +1,8 @@
 import Users from './component/users';
 
-const App = () =>  <Users/>
+const App = () => {
+  return <Users/>
+} 
 
 
 export default App;
