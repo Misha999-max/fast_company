@@ -6,6 +6,15 @@ const Users = () => {
     const [users,setUsers] = useState(api.users.fetchAll())
     const titleBGColor = users.length !== 0 ? 'bg-primary p-2' : "bg-danger p-2" 
     console.log(users)
+    
+    const sklonenieWord = (number) => {
+    
+    if((number / 3 === 1 ) || (number / 4 === 1) || (number / 2 === 1)){
+      return 'человека'
+    }else {
+      return 'человек'
+    }
+  }
     const handeDelet = (id) => {
         setUsers(prevState=>prevState.filter(user=>user._id !== id))
     }
@@ -13,7 +22,7 @@ const Users = () => {
     return (
     <>
     
-      <h1 className={titleBGColor}>{users.length} тусанет с тобой сегодня </h1>
+      <h1 className={titleBGColor}>{users.length} {sklonenieWord(users.length)} тусанет с тобой сегодня </h1>
       <table className="table">
         <thead>
             <tr>
