@@ -1,20 +1,21 @@
 import React,{useState} from "react"
 import 'bootstrap/dist/css/bootstrap.css'
 import api from '../api'
+import SearchStatus from "./searchStatus"
+import User from "./user"
 
 const Users = () => {
     const [users,setUsers] = useState(api.users.fetchAll())
-    const titleBGColor = users.length !== 0 ? 'bg-primary p-2' : "bg-danger p-2" 
-    console.log(users)
-    
-    const sklonenieWord = (number) => {
-    
-    if((number / 3 === 1 ) || (number / 4 === 1) || (number / 2 === 1)){
-      return 'человека'
-    }else {
-      return 'человек'
+
+    const handleChangeBookmarkStatus = (id) => {
+      const newArrayBookmakChange = [...users]
+      let bookmarkcheck = newArrayBookmakChange.find(user => user._id === id)
+      bookmarkcheck.bookmark = bookmarkcheck.bookmark ? false : true
+      newArrayBookmakChange.bookmark = bookmarkcheck.bookmark
+      setUsers(newArrayBookmakChange)
+      
     }
-  }
+
     const handeDelet = (id) => {
         setUsers(prevState=>prevState.filter(user=>user._id !== id))
     }
@@ -22,7 +23,7 @@ const Users = () => {
     return (
     <>
     
-      <h1 className={titleBGColor}>{users.length} {sklonenieWord(users.length)} тусанет с тобой сегодня </h1>
+      <SearchStatus user={users}/>
       <table className="table">
         <thead>
             <tr>
@@ -31,24 +32,14 @@ const Users = () => {
             <th scope="col">Профессия</th>
             <th scope="col">Встретился,раз</th>
             <th scope="col">Оценка</th>
+            <th scope="col">Избранное</th>
             <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             
        {users.length !== 0 ? users.map(user => (
-            <tr key={user._id}>
-                <th scope="row">{user.name}</th>
-                <th>{user.qualities.map(qual => (
-                    <span className={"badge bg-" + qual.color + " m-2 p-2"}>{qual.name}</span>
-                ))}</th>
-                <th>{user.profession.name}</th>
-                <th>{user.completedMeetings}</th>
-                <th>{user.rate}</th>
-                <th>
-                 <button onClick={() => handeDelet(user._id)}  className="btn btn-danger">DELETE</button>
-                </th>
-            </tr>
+          <User user={user} handeDelet={handeDelet} handleChangeBookmarkStatus={handleChangeBookmarkStatus}/>
         )) :
 
           <div className="badge m-10 bg-warning">Что-то ни кто не хочет тусить</div>
