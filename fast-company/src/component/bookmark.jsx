@@ -2,13 +2,13 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 
 const Bookmark = (props) => {
-    const {user,handleChangeBookmarkStatus} = props
+    const {bookmark,handleChangeBookmarkStatus,id} = props
     return(
-        <th onClick={()=>handleChangeBookmarkStatus(user._id)}>{
-            user.bookmark ?
+        <button className="btnBookmark" onClick={()=>handleChangeBookmarkStatus(id)}>{
+            bookmark ?
             <i className="bi bi-person-plus-fill"></i> :
             <i className="bi bi-person-plus"></i>
-         }</th>
+         }</button>
     )
 }   
 export default Bookmark
