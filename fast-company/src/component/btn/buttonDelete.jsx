@@ -1,9 +1,12 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React from "react"
 
 const ButtonDelete = (props) => {
-    const {id,handeDelet} = props
+    const { id, handeDelet } = props
     return (
-        <button onClick={() => handeDelet(id)}  className="btn btn-danger">DELETE</button>
+        <button onClick={() => handeDelet(id)} className="btn btn-danger">
+            DELETE
+        </button>
     )
 }
 

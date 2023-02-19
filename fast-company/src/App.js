@@ -1,8 +1,8 @@
-import Users from './component/users';
+/* eslint-disable react/prop-types */
+import Users from "./component/users"
 
 const App = () => {
-   return <Users/>
-} 
+    return <Users />
+}
 
-
-export default App;
+export default App
