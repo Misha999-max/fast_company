@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 module.exports = {
     env: {
         browser: true,
@@ -8,23 +6,21 @@ module.exports = {
     extends: ["plugin:react/recommended", "standard"],
     overrides: [],
     parserOptions: {
-        ecmaVersion: "latest",
+        ecmaFeatures: {
+            jsx: true
+        },
+        ecmaVersion: 12,
         sourceType: "module"
     },
     plugins: ["react"],
     rules: {
-        indent: ["error", 4],
+        indent: [0, 4],
         semi: [2, "never"],
-        "space-before-function-paren": ["error", "never"],
-        quotes: ["error", "double", { allowTemplateLiterals: true }],
-        "multiline-ternary": ["error", "always-multiline"],
-        "prefer-const": [
+        "space-before-function-paren": [
             "error",
-            {
-                destructuring: "any",
-                ignoreReadBeforeAssign: true
-            }
+            { anonymous: "always", named: "never" }
         ],
-        "no-unneeded-ternary": ["error", { defaultAssignment: true }]
+        quotes: ["error", "double", { allowTemplateLiterals: true }],
+        "multiline-ternary": ["off"]
     }
 }

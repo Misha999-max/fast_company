@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from "react"
+import PropTypes from "prop-types"
 import Qualitie from "./qualitie"
 import Bookmark from "./bookmark"
 import ButtonDelete from "./btn/buttonDelete"
 
-const User = (props) => {
-    const { user, handeDelet, handleChangeBookmarkStatus } = props
+const User = ({ user, handeDelet, handleChangeBookmarkStatus }) => {
+    console.log(typeof user)
     return (
         <tr key={user._id}>
             <th scope="row">{user.name}</th>
@@ -28,5 +29,11 @@ const User = (props) => {
             </th>
         </tr>
     )
+}
+
+User.prototype = {
+    user: PropTypes.object.isRequired,
+    handeDelet: PropTypes.func.isRequired,
+    handleChangeBookmarkStatus: PropTypes.func.isRequired
 }
 export default User

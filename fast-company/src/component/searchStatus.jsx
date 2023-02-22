@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from "react"
+import PropTypes from "prop-types"
 
-const SearchStatus = (props) => {
-    const { user } = props
-    const titleBGColor = user.length !== 0 ? "bg-primary p-2" : "bg-danger p-2"
+const SearchStatus = ({ count }) => {
+    const titleBGColor = count !== 0 ? "bg-primary p-2" : "bg-danger p-2"
     const renderPhrase = (number) => {
         const lastOne = Number(number.toString().slice(-1))
         if (number > 4 && number < 15) return "человек тусанет"
@@ -13,8 +13,12 @@ const SearchStatus = (props) => {
     }
     return (
         <h1 className={titleBGColor}>
-            {user.length} {renderPhrase(user.length)} с тобой сегодня{" "}
+            {count} {count ? renderPhrase(count) : "никто"} с тобой сегодня{" "}
         </h1>
     )
+}
+
+SearchStatus.prototype = {
+    count: PropTypes.number.isRequired
 }
 export default SearchStatus
