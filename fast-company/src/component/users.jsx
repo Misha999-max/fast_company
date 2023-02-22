@@ -55,9 +55,8 @@ const Users = () => {
     const clearFilter = () => {
         setSelectedProf()
     }
-    console.log(users)
     const filterUsers = selectedProf
-        ? users.filter((user) => user.profession.name === selectedProf.name)
+        ? users.filter((user) => user.profession._id === selectedProf._id)
         : users
     useEffect(() => {
         setCount(filterUsers.length)

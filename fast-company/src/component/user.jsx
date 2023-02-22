@@ -6,7 +6,6 @@ import Bookmark from "./bookmark"
 import ButtonDelete from "./btn/buttonDelete"
 
 const User = ({ user, handeDelet, handleChangeBookmarkStatus }) => {
-    console.log(typeof user)
     return (
         <tr key={user._id}>
             <th scope="row">{user.name}</th>

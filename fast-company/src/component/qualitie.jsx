@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from "react"
+import PropTypes from "prop-types"
 
 const Qualitie = (props) => {
     const { qualitie } = props
+
     return (
         <>
             {qualitie.map((qual) => (
@@ -15,6 +17,9 @@ const Qualitie = (props) => {
             ))}
         </>
     )
+}
+Qualitie.prototype = {
+    qualitie: PropTypes.array.isRequired
 }
 
 export default Qualitie
