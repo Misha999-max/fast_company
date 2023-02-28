@@ -28,3 +28,10 @@ code {
 .page-item:hover {
     box-shadow: 0px 0px 10px blue;
 }
+th.changeFilter {
+    transition: color 0.3s ease;
+}
+th.changeFilter:hover {
+    cursor: pointer;
+    color: blueviolet;
+}

@@ -3,18 +3,21 @@ import React, { useState, useEffect } from "react"
 import "bootstrap/dist/css/bootstrap.css"
 import api from "../api"
 import SearchStatus from "./searchStatus"
-import User from "./user"
 import Pagination from "./pagination"
 import { paginate } from "./utils/paginate"
 import GroupList from "./groupList"
+import UsersTable from "./usersTable"
+import _ from "lodash"
 
 const Users = () => {
     const [users, setUsers] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfession] = useState()
     const [selectedProf, setSelectedProf] = useState()
+    const [iconsort, setIconSort] = useState()
     const [count, setCount] = useState(users.lenght)
-    const pageSize = 4
+    const pageSize = 6
+    const [sortBy, setSortby] = useState({ iter: "name", order: "asc" })
 
     const handleChangeBookmarkStatus = (id) => {
         const newArrayBookmakChange = [...users]
@@ -40,8 +43,19 @@ const Users = () => {
         setCurrentPage(1)
     }, [selectedProf])
 
+    useEffect(() => {
+        if (sortBy.order === "desc") {
+            setIconSort(<i className="bi bi-caret-down-fill"></i>)
+        } else {
+            setIconSort(<i className="bi bi-caret-up-fill"></i>)
+        }
+    }, [sortBy])
+
     const handleProfessionSelect = (item) => {
         setSelectedProf(item)
+    }
+    const handleSort = (item) => {
+        setSortby(item)
     }
 
     const handlePageChange = (pageIndex) => {
@@ -55,13 +69,15 @@ const Users = () => {
     const clearFilter = () => {
         setSelectedProf()
     }
+
     const filterUsers = selectedProf
         ? users.filter((user) => user.profession._id === selectedProf._id)
         : users
     useEffect(() => {
         setCount(filterUsers.length)
     }, [filterUsers])
-    const userCrop = paginate(filterUsers, currentPage, pageSize)
+    const sortedUsers = _.orderBy(filterUsers, [sortBy.path], [sortBy.order])
+    const userCrop = paginate(sortedUsers, currentPage, pageSize)
 
     return (
         <div className="d-flex justyfi-content-center">
@@ -83,37 +99,16 @@ const Users = () => {
 
             <div className="d-flex flex-column">
                 <SearchStatus count={count} />
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Имя </th>
-                            <th scope="col">Качества</th>
-                            <th scope="col">Профессия</th>
-                            <th scope="col">Встретился,раз</th>
-                            <th scope="col">Оценка</th>
-                            <th scope="col">Избранное</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {count !== 0 ? (
-                            userCrop.map((user) => (
-                                <User
-                                    key={user._id}
-                                    user={user}
-                                    handeDelet={handeDelet}
-                                    handleChangeBookmarkStatus={
-                                        handleChangeBookmarkStatus
-                                    }
-                                />
-                            ))
-                        ) : (
-                            <div className="badge m-10 bg-warning">
-                                Что-то ни кто не хочет тусить
-                            </div>
-                        )}
-                    </tbody>
-                </table>
+                <UsersTable
+                    iconsort={iconsort}
+                    users={userCrop}
+                    handeDelet={handeDelet}
+                    count={count}
+                    handleChange={handleChangeBookmarkStatus}
+                    onSort={handleSort}
+                    currentSort={sortBy}
+                />
+
                 <Pagination
                     itemCount={count}
                     pageSize={pageSize}
