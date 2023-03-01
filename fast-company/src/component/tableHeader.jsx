@@ -28,7 +28,10 @@ const TableHeader = ({ onSort, selectedSort, columns, iconsort }) => {
                         scope="col"
                     >
                         {columns[column].name}{" "}
-                        {columns[column].path ? iconsort : null}
+                        {columns[column].path &&
+                        selectedSort.path === columns[column].path
+                            ? iconsort
+                            : null}
                     </th>
                 ))}
             </tr>

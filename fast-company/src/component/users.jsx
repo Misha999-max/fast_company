@@ -44,11 +44,13 @@ const Users = () => {
     }, [selectedProf])
 
     useEffect(() => {
-        if (sortBy.order === "desc") {
-            setIconSort(<i className="bi bi-caret-down-fill"></i>)
-        } else {
-            setIconSort(<i className="bi bi-caret-up-fill"></i>)
-        }
+        setIconSort(
+            sortBy.order === "asc" ? (
+                <i className="bi bi-caret-up-fill"></i>
+            ) : (
+                <i className="bi bi-caret-down-fill"></i>
+            )
+        )
     }, [sortBy])
 
     const handleProfessionSelect = (item) => {
