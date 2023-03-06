@@ -35,3 +35,15 @@ th.changeFilter:hover {
     cursor: pointer;
     color: blueviolet;
 }
+
+.userPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 40px auto;
+}
+.userPage-profession {
+    font-size: 20px;
+    color: blue;
+}

@@ -7,9 +7,10 @@ import Pagination from "./pagination"
 import { paginate } from "./utils/paginate"
 import GroupList from "./groupList"
 import UsersTable from "./usersTable"
+import UserPage from "./userPage"
 import _ from "lodash"
 
-const Users = () => {
+const Users = ({ match }) => {
     const [users, setUsers] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfession] = useState()
@@ -18,6 +19,7 @@ const Users = () => {
     const [count, setCount] = useState(users.lenght)
     const pageSize = 6
     const [sortBy, setSortby] = useState({ iter: "name", order: "asc" })
+    const userId = match.params.userId
 
     const handleChangeBookmarkStatus = (id) => {
         const newArrayBookmakChange = [...users]
@@ -34,6 +36,7 @@ const Users = () => {
             setUsers(result)
             setCount(result.length)
         })
+
         api.professions.fetchAll().then((data) => {
             setProfession(data)
         })
@@ -82,43 +85,49 @@ const Users = () => {
     const userCrop = paginate(sortedUsers, currentPage, pageSize)
 
     return (
-        <div className="d-flex justyfi-content-center">
-            {professions && (
-                <div className="d-flex flex-column flex-shrink-0 p-3">
-                    <GroupList
-                        selectedItem={selectedProf}
-                        items={professions}
-                        onItemSelect={handleProfessionSelect}
-                    />
-                    <button
-                        className="btn btn-secondary mt-2"
-                        onClick={clearFilter}
-                    >
-                        Clear
-                    </button>
+        <>
+            {userId ? (
+                <UserPage id={userId} users={users} />
+            ) : (
+                <div className="d-flex justyfi-content-center">
+                    {professions && (
+                        <div className="d-flex flex-column flex-shrink-0 p-3">
+                            <GroupList
+                                selectedItem={selectedProf}
+                                items={professions}
+                                onItemSelect={handleProfessionSelect}
+                            />
+                            <button
+                                className="btn btn-secondary mt-2"
+                                onClick={clearFilter}
+                            >
+                                Clear
+                            </button>
+                        </div>
+                    )}
+
+                    <div className="d-flex flex-column">
+                        <SearchStatus count={count} />
+                        <UsersTable
+                            iconsort={iconsort}
+                            users={userCrop}
+                            handeDelet={handeDelet}
+                            count={count}
+                            handleChange={handleChangeBookmarkStatus}
+                            onSort={handleSort}
+                            currentSort={sortBy}
+                        />
+
+                        <Pagination
+                            itemCount={count}
+                            pageSize={pageSize}
+                            currentPage={currentPage}
+                            onChangePage={handlePageChange}
+                        />
+                    </div>
                 </div>
             )}
-
-            <div className="d-flex flex-column">
-                <SearchStatus count={count} />
-                <UsersTable
-                    iconsort={iconsort}
-                    users={userCrop}
-                    handeDelet={handeDelet}
-                    count={count}
-                    handleChange={handleChangeBookmarkStatus}
-                    onSort={handleSort}
-                    currentSort={sortBy}
-                />
-
-                <Pagination
-                    itemCount={count}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    onChangePage={handlePageChange}
-                />
-            </div>
-        </div>
+        </>
     )
 }
 
