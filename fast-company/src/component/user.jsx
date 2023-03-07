@@ -9,7 +9,9 @@ import { Link } from "react-router-dom"
 const User = ({ user, handeDelet, handleChange }) => {
     return (
         <tr key={user._id}>
-            <Link to={`/users/${user._id}`}>{user.name}</Link>
+            <th>
+                <Link to={`/users/${user._id}`}>{user.name}</Link>
+            </th>
             <th>
                 <Qualitie qualitie={user.qualities} />
             </th>

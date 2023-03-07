@@ -12,19 +12,10 @@ const App = () => {
         <>
             <NavBar />
             <Switch>
-                <Route path="/" exact />
-                <Route
-                    path="/login/"
-                    render={(props) => <Login isAdmin={false} {...props} />}
-                />
-                <Route
-                    path="/main/"
-                    render={(props) => <Main isAdmin={false} {...props} />}
-                />
-                <Route
-                    path="/users/:userId?"
-                    render={(props) => <Users {...props} />}
-                />
+                <Route path="/" exact component={Main} />
+                <Route path="/main" component={Main} />
+                <Route path="/login/" component={Login} />
+                <Route path="/users/:userId?" component={Users} />
                 <Route component={NotFaund} />
             </Switch>
         </>
