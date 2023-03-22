@@ -16,6 +16,7 @@ const Users = ({ match }) => {
     const [professions, setProfession] = useState()
     const [selectedProf, setSelectedProf] = useState()
     const [iconsort, setIconSort] = useState()
+    const [inputSearch, setInputSerch] = useState("")
     const [count, setCount] = useState(users.lenght)
     const pageSize = 6
     const [sortBy, setSortby] = useState({ iter: "name", order: "asc" })
@@ -75,6 +76,16 @@ const Users = ({ match }) => {
         setSelectedProf()
     }
 
+    // поиск users через строку поиска
+    const handleSubmit = (value) => {
+        const serchRegEx = new RegExp(`${inputSearch}`, "gmi") //
+        setInputSerch(value)
+        const filterArr = users.filter((item) => {
+            return serchRegEx.test(item.name)
+        })
+        return filterArr
+    }
+
     const filterUsers = selectedProf
         ? users.filter((user) => user.profession._id === selectedProf._id)
         : users
@@ -116,6 +127,8 @@ const Users = ({ match }) => {
                             handleChange={handleChangeBookmarkStatus}
                             onSort={handleSort}
                             currentSort={sortBy}
+                            handleSubmit={handleSubmit}
+                            value={inputSearch}
                         />
 
                         <Pagination

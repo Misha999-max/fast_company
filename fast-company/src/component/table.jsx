@@ -3,27 +3,40 @@ import React from "react"
 import TableBody from "./tableBody"
 import TableHeader from "./tableHeader"
 import PropTypes from "prop-types"
+import SearchInput from "./searchInput"
 
-const Table = ({ onSort, currentSort, columns, data, count, children }) => {
+const Table = ({
+    onSort,
+    currentSort,
+    columns,
+    data,
+    count,
+    children,
+    value,
+    handleSubmit
+}) => {
     return (
-        <table className="table">
-            {children || (
-                <>
-                    <TableHeader
-                        onSort={onSort}
-                        selectedSort={currentSort}
-                        columns={columns}
-                    />
-                    {count !== 0 ? (
-                        <TableBody data={data} columns={columns} />
-                    ) : (
-                        <div className="badge m-10 bg-warning">
-                            Что-то ни кто не хочет тусить
-                        </div>
-                    )}
-                </>
-            )}
-        </table>
+        <>
+            <SearchInput handleSubmit={handleSubmit} value={value} />
+            <table className="table">
+                {children || (
+                    <>
+                        <TableHeader
+                            onSort={onSort}
+                            selectedSort={currentSort}
+                            columns={columns}
+                        />
+                        {count !== 0 ? (
+                            <TableBody data={data} columns={columns} />
+                        ) : (
+                            <div className="badge m-10 bg-warning">
+                                Что-то ни кто не хочет тусить
+                            </div>
+                        )}
+                    </>
+                )}
+            </table>
+        </>
     )
 }
 Table.prototypes = {

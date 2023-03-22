@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react"
 import PropTypes from "prop-types"
-// import User from "./user"
 import TableHeader from "./tableHeader"
 import TableBody from "./tableBody"
 import Bookmark from "./bookmark"
@@ -17,7 +16,9 @@ const UsersTable = ({
     count,
     handeDelet,
     handleChange,
-    iconsort
+    iconsort,
+    handleSubmit,
+    value
 }) => {
     const columns = {
         name: {
@@ -61,6 +62,8 @@ const UsersTable = ({
             columns={columns}
             data={users}
             count={count}
+            handleSubmit={handleSubmit}
+            value={value}
         >
             <table className="table">
                 <TableHeader
