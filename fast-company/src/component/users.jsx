@@ -21,6 +21,7 @@ const Users = ({ match }) => {
     const pageSize = 6
     const [sortBy, setSortby] = useState({ iter: "name", order: "asc" })
     const userId = match.params.userId
+    const [inpuutserchArr, setInpupSearchArr] = useState([])
 
     const handleChangeBookmarkStatus = (id) => {
         const newArrayBookmakChange = [...users]
@@ -59,6 +60,8 @@ const Users = ({ match }) => {
 
     const handleProfessionSelect = (item) => {
         setSelectedProf(item)
+        setInputSerch("")
+        setInpupSearchArr([])
     }
     const handleSort = (item) => {
         setSortby(item)
@@ -83,8 +86,12 @@ const Users = ({ match }) => {
         const filterArr = users.filter((item) => {
             return serchRegEx.test(item.name)
         })
-        return filterArr
+        console.log(filterArr)
+        setInpupSearchArr(filterArr)
     }
+    // if (inputSearch) {
+    //     filterUsers = handleSubmit(inputSearch)
+    // }
 
     const filterUsers = selectedProf
         ? users.filter((user) => user.profession._id === selectedProf._id)
@@ -121,7 +128,11 @@ const Users = ({ match }) => {
                         <SearchStatus count={count} />
                         <UsersTable
                             iconsort={iconsort}
-                            users={userCrop}
+                            users={
+                                inpuutserchArr.length === 0
+                                    ? userCrop
+                                    : inpuutserchArr
+                            }
                             handeDelet={handeDelet}
                             count={count}
                             handleChange={handleChangeBookmarkStatus}
