@@ -47,3 +47,11 @@ th.changeFilter:hover {
     font-size: 20px;
     color: blue;
 }
+
+.loading {
+    font-size: 30px;
+    color: red;
+    text-align: center;
+    margin-top: 200px;
+    text-shadow: 0px 10px 30px red;
+}

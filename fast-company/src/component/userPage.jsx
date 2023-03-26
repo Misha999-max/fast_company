@@ -1,17 +1,19 @@
 /* eslint-disable react/prop-types */
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import { useHistory } from "react-router-dom"
+import API from "../api"
 
-const UserPage = ({ id, users }) => {
+const UserPage = ({ userId }) => {
     const history = useHistory()
-    const getUser = (id) => {
-        return users.find((item) => item._id === id)
-    }
+    const [user, setUser] = useState()
+    useEffect(() => {
+        API.users.getById(userId).then((user) => setUser(user))
+    })
     const handlepush = () => {
         history.push("/users")
     }
-    const user = getUser(id)
+
     return (
         <>
             {user ? (
@@ -32,7 +34,7 @@ const UserPage = ({ id, users }) => {
                     <button onClick={handlepush}>К Users</button>
                 </div>
             ) : (
-                <p>Loading...</p>
+                <p className="loading">Loading...</p>
             )}
         </>
     )

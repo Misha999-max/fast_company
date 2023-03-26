@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react"
-import TextFields from "./textFields"
-import { validator } from "./utils/validate"
+import TextFields from ".././component/textFields"
+import { validator } from ".././component/utils/validate"
 
 const Login = () => {
     const [data, setData] = useState({ email: "", password: "" })

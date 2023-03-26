@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from "react"
 import { Route, Switch } from "react-router-dom"
-import Login from "./component/login"
-import Main from "./component/main"
+import Login from "./loyuts/login"
+import Main from "./loyuts/main"
 import NavBar from "./component/navBar"
-import NotFaund from "./component/notFaund"
-import Users from "./component/users"
+import NotFound from "./component/notFound"
+import Users from "./loyuts/users"
 
 const App = () => {
     return (
@@ -16,7 +16,7 @@ const App = () => {
                 <Route path="/main" component={Main} />
                 <Route path="/login/" component={Login} />
                 <Route path="/users/:userId?" component={Users} />
-                <Route component={NotFaund} />
+                <Route component={NotFound} />
             </Switch>
         </>
     )
