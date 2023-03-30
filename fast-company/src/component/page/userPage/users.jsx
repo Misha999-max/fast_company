@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react"
 import "bootstrap/dist/css/bootstrap.css"
-import api from "../api"
-import SearchStatus from "./searchStatus"
-import Pagination from "./pagination"
-import { paginate } from "./utils/paginate"
-import GroupList from "./groupList"
-import UsersTable from "./usersTable"
+import api from "../../../api"
+import SearchStatus from "../../ui/searchStatus"
+import Pagination from "../../common/pagination"
+import { paginate } from "../../utils/paginate"
+import GroupList from "../../common/groupList"
+import UsersTable from "../../ui/usersTable"
 import _ from "lodash"
 
 const Users = () => {

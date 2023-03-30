@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from "react"
 import PropTypes from "prop-types"
-import TableHeader from "./tableHeader"
-import TableBody from "./tableBody"
-import Bookmark from "./bookmark"
-import ButtonDelete from "./btn/buttonDelete"
-import Qualitie from "./qualitie"
-import Table from "./table"
+import TableHeader from "../common/table/tableHeader"
+import TableBody from "../common/table/tableBody"
+import Bookmark from "../common/bookmark"
+import ButtonDelete from "../btn/buttonDelete"
+import Qualitie from "./qualities/qualitie"
+import Table from "../common/table/table"
 import { Link } from "react-router-dom"
 
 const UsersTable = ({

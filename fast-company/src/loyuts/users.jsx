@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react"
-import UserPage from "../component/userPage"
-import UsersList from "../component/users"
+import UserPage from "../component/page/userListPage/userPage"
+import UsersList from "../component/page/userPage/users"
 import { useParams } from "react-router-dom"
 
 const Users = () => {

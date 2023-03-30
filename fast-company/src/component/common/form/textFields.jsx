@@ -1,8 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react"
 
-const TextFields = ({ value, label, name, handelChange, type, error }) => {
+const TextFields = ({ value, label, name, onChange, type, error }) => {
     const [showPassword, setShowPassword] = useState(false)
+    const handleChange = ({ target }) => {
+        onChange({ name: target.name, value: target.value })
+    }
+
     const addClassInput = () => {
         return "form-control" + (error ? " is-invalid" : "")
     }
@@ -18,7 +22,7 @@ const TextFields = ({ value, label, name, handelChange, type, error }) => {
                     id={name}
                     value={value}
                     name={name}
-                    onChange={handelChange}
+                    onChange={handleChange}
                     className={addClassInput()}
                 />
                 {type === "password" && (

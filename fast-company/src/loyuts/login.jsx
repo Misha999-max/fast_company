@@ -1,88 +1,46 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react"
-import TextFields from ".././component/textFields"
-import { validator } from ".././component/utils/validate"
+import React, { useState } from "react"
+import LoginForm from "../component/ui/loginForm"
+import { useParams } from "react-router"
+import RegisterForm from "../component/ui/registerForm"
 
 const Login = () => {
-    const [data, setData] = useState({ email: "", password: "" })
-    const [errors, setErrors] = useState({})
+    const { type } = useParams()
+    const [formType, setFormType] = useState(
+        type === "register" ? type : "login"
+    )
+    const togglleFormType = () => {
+        setFormType((prevState) =>
+            prevState === "register" ? "login" : "register"
+        )
+    }
 
-    const handelChange = ({ target }) => {
-        setData((prevState) => ({
-            ...prevState,
-            [target.name]: target.value
-        }))
-    }
-    const validatorConfig = {
-        email: {
-            isRequired: {
-                massage: "Поле обязательно для заполнения"
-            },
-            isEmail: {
-                massage: "Email введен некорректно"
-            }
-        },
-        password: {
-            isRequired: {
-                massage: "Поле обязательно для заполнения"
-            },
-            isCorrectPassword: {
-                massage: "Пароль должен содержать хотябы одну заглавную букву"
-            },
-            IsContentDigit: {
-                massage: "Пароль должен содержать хоть одну цифру"
-            },
-            min: {
-                massage: "Пароль должен быть более 8 символов",
-                value: 8
-            }
-        }
-    }
-    useEffect(() => {
-        validate()
-    }, [data])
-
-    const validate = () => {
-        const errors = validator(data, validatorConfig)
-        setErrors(errors)
-        return Object.keys(errors).length === 0
-    }
-    const isValid = Object.keys(errors).length === 0
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const isValid = validate()
-        if (!isValid) return
-        console.log(data)
-    }
     return (
         <div className="container mt-3">
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow p-3">
-                    <h3 className="mb-4">Login</h3>
-                    <form onSubmit={handleSubmit}>
-                        <TextFields
-                            label="електронная почта"
-                            type="text"
-                            name="email"
-                            value={data.email}
-                            handelChange={handelChange}
-                            error={errors.email}
-                        />
-                        <TextFields
-                            label="Пароль"
-                            type="password"
-                            name="password"
-                            value={data.password}
-                            handelChange={handelChange}
-                            error={errors.password}
-                        />
-                        <button
-                            disabled={!isValid}
-                            className="btn btn-primary mx-auto w-100"
-                        >
-                            Submit
-                        </button>
-                    </form>
+                    <h3 className="mb-4">{formType}</h3>
+                    {formType === "register" ? (
+                        <>
+                            <RegisterForm />
+                            <p>
+                                already have account?{"  "}
+                                <a role="button" onClick={togglleFormType}>
+                                    Sing In
+                                </a>
+                            </p>
+                        </>
+                    ) : (
+                        <>
+                            <LoginForm />
+                            <p>
+                                Dont have account?{"  "}
+                                <a role="button" onClick={togglleFormType}>
+                                    Sing Up
+                                </a>
+                            </p>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

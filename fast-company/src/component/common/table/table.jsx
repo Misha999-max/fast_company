@@ -3,7 +3,7 @@ import React from "react"
 import TableBody from "./tableBody"
 import TableHeader from "./tableHeader"
 import PropTypes from "prop-types"
-import SearchInput from "./searchInput"
+import SearchInput from "../../searchInput"
 
 const Table = ({
     onSort,

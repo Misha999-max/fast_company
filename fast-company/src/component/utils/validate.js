@@ -2,18 +2,27 @@
 export function validator(data, config) {
     const errors = {}
     function validate(validateMethod, data, config) {
+        let statusValidate
         switch (validateMethod) {
-            case "isRequired":
-                if (data.trim() === "") return config.massage
+            case "isRequired": {
+                if (typeof data === "boolean") {
+                    statusValidate = !data
+                } else {
+                    statusValidate = data.trim() === ""
+                }
+
                 break
+            }
             case "isEmail": {
                 const emailReg = /^\S+@\S+\.\S+$/g
-                if (!emailReg.test(data)) return config.massage
+                statusValidate = !emailReg.test(data)
+
                 break
             }
             case "isCorrectPassword": {
                 const passwordRegEx = /[A-Z]+/g
-                if (!passwordRegEx.test(data)) return config.massage
+                statusValidate = !passwordRegEx.test(data)
+
                 break
             }
             case "IsContentDigit": {
@@ -29,6 +38,7 @@ export function validator(data, config) {
             default:
                 break
         }
+        if (statusValidate) return config.massage
     }
     for (const fieldName in data) {
         for (const validateMethod in config[fieldName]) {
