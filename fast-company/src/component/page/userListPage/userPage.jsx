@@ -21,6 +21,7 @@ const UserPage = ({ userId }) => {
                     <p className="userPage-profession">
                         profession: {user.profession.name}
                     </p>
+                    <p>EMAIL : {user.email}</p>
                     {user.qualities.map((qual) => (
                         <p
                             key={qual._id}
